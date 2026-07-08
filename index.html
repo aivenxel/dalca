@@ -26,8 +26,6 @@
 <meta name="ext-resource-dependency" content="assets/img25.jpg">
 <meta name="ext-resource-dependency" content="assets/img26.jpg">
 <meta name="ext-resource-dependency" content="assets/img27.jpg">
-<meta name="ext-resource-dependency" content="assets/DSC06020.jpg">
-<meta name="ext-resource-dependency" content="assets/DAL-50-AT-BA THINNER ACRILICO ALTA TECNOLOGIA.jpg">
 <meta name="ext-resource-dependency" content="assets/ficha-50atba.png">
 <meta name="ext-resource-dependency" content="assets/ficha-50bo.png">
 <meta name="ext-resource-dependency" content="assets/ficha-50x.png">
@@ -47,33 +45,6 @@ html{scroll-behavior:smooth}
 body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#f3f4f6;color:#151824;line-height:1.45;overflow-x:hidden}
 img{display:block;max-width:100%}
 @keyframes dalcaFade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-
-/* --- DISEÑO RESPONSIVO AVANZADO (MOBILE FIRST) --- */
-.grid-2col { display: grid; grid-template-columns: 1fr; gap: 32px; }
-.grid-3col { display: grid; grid-template-columns: 1fr; gap: 24px; }
-.grid-4col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.row-strip { display: flex; flex-direction: column; gap: 16px; }
-.nav-links { display: none; flex-direction: column; width: 100%; gap: 12px; padding: 16px 0 8px; border-top: 1px solid #d9dde6; }
-.nav-links.open { display: flex; }
-.menu-toggle { display: flex !important; }
-
-@media (min-width: 768px) {
-  .grid-2col { grid-template-columns: 1fr 1fr; gap: 44px; }
-  .grid-3col { grid-template-columns: repeat(2, 1fr); }
-  .grid-4col { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .row-strip { flex-direction: row; }
-  .nav-links { display: flex !important; flex-direction: row; width: auto; padding: 0; border: 0; }
-  .menu-toggle { display: none !important; }
-}
-
-@media (min-width: 1024px) {
-  .grid-3col { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-}
-
-.touch-btn { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 999px; font-weight: 800; text-decoration: none; font-family: inherit; font-size: 14px; cursor: pointer; transition: background .2s; }
-.product-card { background: white; border: 1px solid #d9dde6; border-radius: 26px; overflow: hidden; box-shadow: 0 10px 28px rgba(21,24,36,.04); display: flex; flex-direction: column; height: 100%; }
-.product-card img { transition: transform 0.3s ease; }
-.product-card:hover img { transform: scale(1.03); }
 </style>
 </helmet>
 <template id="__bundler_thumbnail">
@@ -81,148 +52,400 @@ img{display:block;max-width:100%}
 </template>
 <div style="background:#f3f4f6">
 
-<!-- HEADER RESPONSIVO CON MENÚ HAMBURGUESA -->
-<header style="position:sticky;top:0;z-index:50;background:rgba(243,244,246,.95);backdrop-filter:blur(18px);border-bottom:1px solid #d9dde6">
-  <nav style="max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between">
+<header style="position:sticky;top:0;z-index:50;background:rgba(243,244,246,.94);backdrop-filter:blur(18px);border-bottom:1px solid #d9dde6">
+  <nav style="max-width:1180px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:28px">
     <a onClick="{{ navInicio }}" style="cursor:pointer;display:flex;align-items:center">
-      <img src="assets/img01.png" alt="DALCA" style="height:42px;width:auto;object-fit:contain">
+      <img src="assets/img01.png" alt="DALCA" style="height:48px;width:auto;object-fit:contain">
     </a>
-    
-    <!-- Botón de Hamburguesa Móvil -->
-    <button type="button" class="menu-toggle" onClick="{{ toggleMenu }}" style="display:none;flex-direction:column;justify-content:space-between;width:30px;height:22px;background:none;border:0;cursor:pointer;padding:0;z-index:51">
-      <span style="width:100%;height:3px;background:#322a7a;border-radius:3px;transition:0.3s"></span>
-      <span style="width:100%;height:3px;background:#322a7a;border-radius:3px;transition:0.3s"></span>
-      <span style="width:100%;height:3px;background:#322a7a;border-radius:3px;transition:0.3s"></span>
-    </button>
-
-    <!-- Enlaces del Menú -->
-    <div class="nav-links {{ menuOpen ? 'open' : '' }}" style="align-items:center;gap:24px">
-      <sc-for list="{{ navItems }}" as="item">
-        <a onClick="{{ item.onClick }}" style="position:relative;padding:8px 0;font-weight:800;color:#303544;cursor:pointer;white-space:nowrap;font-size:15px;width:100%;text-align:left">
+    <div style="display:flex;align-items:center;gap:26px">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+        <a onClick="{{ item.onClick }}" style="position:relative;padding:8px 0;font-weight:800;color:#303544;cursor:pointer;white-space:nowrap">
           {{ item.label }}
-          <sc-if value="{{ item.active }}">
+          <sc-if value="{{ item.active }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:9px;background:#322a7a"></span>
           </sc-if>
         </a>
       </sc-for>
-      <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" class="touch-btn" style="background:#322a7a;color:white;box-shadow:0 8px 22px rgba(50,42,122,.16);white-space:nowrap;width:100%;text-align:center">WhatsApp</a>
+      <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" style="background:#322a7a;color:white;border-radius:999px;padding:13px 22px;font-weight:900;box-shadow:0 8px 22px rgba(50,42,122,.16);white-space:nowrap">WhatsApp</a>
     </div>
   </nav>
 </header>
 
 <main style="min-height:70vh">
 
-<!-- SECCIÓN INICIO -->
-<sc-if value="{{ isInicio }}">
+<sc-if value="{{ isInicio }}" hint-placeholder-val="{{ true }}">
 <section style="animation:dalcaFade .18s ease both">
-  <div style="max-width:1180px;margin:0 auto;padding:48px 24px;display:flex;flex-direction:column-reverse;gap:44px;min-height:calc(100vh - 86px)" class="grid-2col">
+
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:.92fr 1.08fr;gap:58px;align-items:center;min-height:calc(100vh - 86px)">
     <div>
-      <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-        <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Química industrial · Venezuela<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Química industrial · Venezuela<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
       </span>
-      <h1 style="font-size:clamp(34px,5vw,64px);line-height:1.05;letter-spacing:-.04em;margin:0 0 20px;text-wrap:balance">Soluciones químicas para operaciones que no pueden detenerse.</h1>
-      <p style="font-size:clamp(16px,1.8vw,19px);color:#626a7a;margin:0 0 28px">DALCA desarrolla, envasa y suministra productos para industria, comercio, talleres y distribuidores. Una presencia digital clara para conectar producto, sector y solicitud técnica/comercial.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px">
-        <a onClick="{{ navCatalog }}" class="touch-btn" style="background:#322a7a;color:white">Ver líneas</a>
-        <a onClick="{{ navContacto }}" class="touch-btn" style="background:white;border:1px solid #d9dde6;color:#151824">Solicitar información</a>
+      <h1 style="font-size:clamp(42px,5.8vw,74px);line-height:1.02;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance;max-width:870px">Soluciones químicas para operaciones que no pueden detenerse.</h1>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:760px;margin:0">DALCA desarrolla, envasa y suministra productos para industria, comercio, talleres y distribuidores. Una presencia digital clara para conectar producto, sector y solicitud técnica/comercial.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a onClick="{{ navCatalog }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white;cursor:pointer">Ver líneas</a>
+        <a onClick="{{ navContacto }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:white;border:1px solid #d9dde6;color:#151824;cursor:pointer">Solicitar información</a>
       </div>
-      <div class="grid-4col">
-        <sc-for list="{{ metrics }}" as="m">
-          <div style="background:white;border:1px solid #d9dde6;border-radius:18px;padding:14px">
-            <b style="display:block;font-size:22px;color:#322a7a">{{ m.big }}</b>
-            <span style="font-size:12px;color:#626a7a">{{ m.label }}</span>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px">
+        <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+          <div style="background:white;border:1px solid #d9dde6;border-radius:18px;padding:17px">
+            <b style="display:block;font-size:25px;color:#322a7a">{{ m.big }}</b>
+            <span style="font-size:13px;color:#626a7a">{{ m.label }}</span>
           </div>
         </sc-for>
       </div>
     </div>
-    <div style="position:relative;border-radius:28px;overflow:hidden;box-shadow:0 15px 40px rgba(21,24,36,.08)">
-      <img src="assets/img02.jpg" alt="Planta DALCA" style="width:100%;height:clamp(300px,45vh,520px);object-fit:cover">
-      <div style="position:absolute;left:16px;right:16px;bottom:16px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:16px">
-        <strong style="font-size:18px;display:block;letter-spacing:-.01em">Planta real. Inventario real. Despacho real.</strong>
-        <span style="color:#626a7a;font-size:14px">Presencia industrial para atender mercados productivos.</span>
+    <div style="position:relative;border-radius:34px;overflow:hidden;background:#ddd;box-shadow:0 20px 54px rgba(21,24,36,.11);border:1px solid rgba(255,255,255,.8)">
+      <img src="assets/img02.jpg" alt="Torre de destilación y tanques DALCA" style="width:100%;height:550px;object-fit:cover;object-position:center">
+      <div style="position:absolute;left:24px;right:24px;bottom:24px;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.82);border-radius:22px;padding:20px 22px;z-index:2">
+        <strong style="font-size:22px;letter-spacing:-.02em;display:block">Planta real. Inventario real. Despacho real.</strong>
+        <span style="color:#626a7a">Presencia industrial para atender mercados productivos.</span>
       </div>
     </div>
   </div>
 
   <div style="background:white;border-top:1px solid #d9dde6;border-bottom:1px solid #d9dde6">
-    <div style="max-width:1180px;margin:0 auto;padding:64px 24px">
-      <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-        <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Enfoque comercial<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px">
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Enfoque comercial<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
       </span>
-      <h2 style="font-size:clamp(28px,3.8vw,46px);line-height:1.1;letter-spacing:-.03em;margin:0 0 16px">Una estructura clara para vender por línea, sector y aplicación.</h2>
-      <p style="font-size:clamp(16px,1.8vw,19px);color:#626a7a;margin:0 0 28px">Menos saturación visual. Más jerarquía. La prioridad es que el comprador identifique rápido qué línea corresponde a su operación.</p>
-      <div style="display:grid;border:1px solid #d9dde6;border-radius:24px;overflow:hidden;background:white;box-shadow:0 15px 40px rgba(21,24,36,.06)">
-        <sc-for list="{{ classRows }}" as="row">
-          <div style="display:flex;flex-direction:column;border-bottom:1px solid #d9dde6;padding:20px" class="row-strip">
-            <div style="flex:0 0 180px"><h3 style="margin:0;color:#322a7a;font-size:20px;font-weight:800">{{ row.name }}</h3></div>
-            <div style="flex:1;color:#525a6a;font-size:15px">{{ row.desc }}</div>
-            <div style="flex:0 0 auto;align-self:flex-start"><span style="display:inline-block;border-radius:999px;background:#e9ebef;color:#322a7a;font-size:11px;font-weight:900;padding:6px 12px">{{ row.pill }}</span></div>
+      <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">Una estructura clara para vender por línea, sector y aplicación.</h2>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:760px;margin:0">Menos saturación visual. Más jerarquía. La prioridad es que el comprador identifique rápido qué línea corresponde a su operación.</p>
+      <div style="display:grid;border:1px solid #d9dde6;border-radius:28px;overflow:hidden;background:white;margin-top:28px;box-shadow:0 20px 54px rgba(21,24,36,.11)">
+        <sc-for list="{{ classRows }}" as="row" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:190px 1fr 140px;border-bottom:1px solid #d9dde6;align-items:center">
+            <div style="padding:24px"><h3 style="margin:0;color:#322a7a;font-size:22px">{{ row.name }}</h3></div>
+            <div style="padding:24px;color:#151824">{{ row.desc }}</div>
+            <div style="padding:24px"><span style="display:inline-flex;justify-content:center;align-items:center;border-radius:999px;background:#e9ebef;color:#322a7a;font-size:12px;font-weight:900;padding:8px 12px">{{ row.pill }}</span></div>
           </div>
         </sc-for>
       </div>
     </div>
   </div>
 
-  <div style="max-width:1180px;margin:0 auto;padding:64px 24px">
-    <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-      <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Sectores<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px">
+    <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+      <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Sectores<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
     </span>
-    <h2 style="font-size:clamp(28px,3.8vw,46px);line-height:1.1;letter-spacing:-.03em;margin:0 0 28px">Pensada para conectar con compradores industriales en Venezuela.</h2>
-    <div style="display:grid;grid-template-columns:1fr;border:1px solid #d9dde6;border-radius:24px;overflow:hidden;background:white;box-shadow:0 15px 40px rgba(21,24,36,.06)" class="grid-2col">
-      <sc-for list="{{ sectors }}" as="f">
-        <div style="padding:24px;border-bottom:1px solid #d9dde6;border-right:1px solid #d9dde6">
-          <div style="font-size:11px;letter-spacing:.14em;color:#e30717;font-weight:900;margin-bottom:16px">{{ f.num }}</div>
-          <h3 style="font-size:20px;font-weight:800;margin:0 0 10px">{{ f.title }}</h3>
-          <p style="color:#626a7a;margin:0;font-size:14.5px">{{ f.desc }}</p>
+    <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">Pensada para conectar con compradores industriales en Venezuela.</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #d9dde6;border-radius:28px;overflow:hidden;background:white;box-shadow:0 20px 54px rgba(21,24,36,.11);margin-top:34px">
+      <sc-for list="{{ sectors }}" as="f" hint-placeholder-count="4">
+        <div style="padding:30px;border-right:1px solid #d9dde6">
+          <div style="font-size:12px;letter-spacing:.18em;color:#e30717;font-weight:900;margin-bottom:34px">{{ f.num }}</div>
+          <h3 style="font-size:24px;letter-spacing:-.03em;margin:0 0 12px">{{ f.title }}</h3>
+          <p style="color:#626a7a;margin:0">{{ f.desc }}</p>
         </div>
       </sc-for>
     </div>
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:34px">
+      <img src="assets/img03.jpg" alt="Inventario DALCA" style="width:100%;height:360px;object-fit:cover;border-radius:26px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+      <div style="display:grid;gap:18px">
+        <img src="assets/img04.jpg" alt="Área de llenado DALCA" style="width:100%;height:171px;object-fit:cover;border-radius:26px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+        <img src="assets/img05.jpg" alt="Línea de solventes DALCA" style="width:100%;height:171px;object-fit:cover;border-radius:26px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+      </div>
+    </div>
   </div>
+
+  <div style="background:linear-gradient(135deg,#fff 0%,#f3f4f6 100%);border-top:1px solid #d9dde6;border-bottom:1px solid #d9dde6">
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center">
+      <div><img src="assets/img06.jpg" alt="Equipo DALCA en planta" style="border-radius:32px;box-shadow:0 20px 54px rgba(21,24,36,.11);border:1px solid #d9dde6;height:560px;width:100%;object-fit:cover;object-position:82% 50%"></div>
+      <div>
+        <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+          <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Presencia humana<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+        </span>
+        <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">Detrás del suministro hay personas coordinando, respondiendo y atendiendo.</h2>
+        <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:760px;margin:0">Una marca industrial no tiene que sentirse fría. DALCA puede mostrarse sólida y cercana al mismo tiempo: planta, productos, operación y equipo.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+          <a onClick="{{ navContacto }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white;cursor:pointer">Contactar DALCA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:34px 24px">
+    <a href="https://petrodalcorp.com/" target="_blank" rel="noopener" style="display:grid;grid-template-columns:1.15fr .85fr auto;gap:26px;align-items:center;background:linear-gradient(135deg,#ffffff 0%,#f7f8fa 100%);border:1px solid #d9dde6;border-radius:30px;padding:24px 26px;box-shadow:0 18px 42px rgba(21,24,36,.08);position:relative;overflow:hidden;color:inherit">
+      <span style="position:absolute;right:-80px;bottom:-120px;width:330px;height:220px;background:rgba(255,247,22,.22);border-radius:50%;pointer-events:none"></span>
+      <div style="position:relative;z-index:1">
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:8px"><span style="width:28px;height:7px;border-radius:99px;background:#e30717"></span>Proyecto aliado<span style="width:28px;height:7px;border-radius:99px;background:#fff716"></span></div>
+        <h3 style="font-size:clamp(24px,2.6vw,34px);line-height:1.08;letter-spacing:-.035em;margin:0 0 8px">PetroDal / DAL994 BIO</h3>
+        <p style="color:#626a7a;margin:0;max-width:620px;font-size:16px">Un espacio reservado para una línea especializada del ecosistema DALCA. Próximamente, una web independiente con aplicaciones, información técnica y contacto comercial.</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end;position:relative;z-index:1">
+        <span style="min-height:76px;min-width:158px;border-radius:20px;background:#07080f;display:flex;align-items:center;justify-content:center;padding:13px 16px;border:1px solid rgba(50,42,122,.12)"><img src="assets/img07.png" alt="PetroDal" style="max-height:54px;width:auto;object-fit:contain"></span>
+        <span style="min-height:76px;min-width:158px;border-radius:20px;background:#07080f;display:flex;align-items:center;justify-content:center;padding:13px 16px;border:1px solid rgba(50,42,122,.12)"><img src="assets/img08.png" alt="DAL994 BIO" style="max-height:58px;width:auto;object-fit:contain"></span>
+      </div>
+      <span style="position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#322a7a;color:white;font-weight:900;padding:13px 18px;white-space:nowrap">Ver referencia</span>
+    </a>
+  </div>
+
+  <div style="background:#322a7a;color:white">
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center">
+      <div>
+        <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:white;margin-bottom:20px">
+          <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Próximo paso<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+        </span>
+        <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">¿Necesitas disponibilidad, presentación o información técnica?</h2>
+        <p style="font-size:clamp(18px,2vw,22px);color:rgba(255,255,255,.76);max-width:760px;margin:0">Dirige tu solicitud al equipo comercial de DALCA.</p>
+      </div>
+      <div>
+        <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#fff716;color:#322a7a">Contactar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
 </section>
 </sc-if>
 
-<!-- SECCIÓN NOSOTROS -->
 <sc-if value="{{ isNosotros }}">
-<section style="animation:dalcaFade .18s ease both">
-  <div style="max-width:1180px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr;gap:44px" class="grid-2col">
+<section data-screen-label="Nosotros" style="animation:dalcaFade .18s ease both">
+
+  <header style="max-width:1180px;margin:0 auto;padding:86px 24px 40px;display:grid;grid-template-columns:1.02fr .98fr;gap:58px;align-items:center;min-height:calc(88vh - 86px)">
     <div>
-      <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-        <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Valencia, Venezuela · Desde 1978<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Valencia, Venezuela · Desde 1978<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
       </span>
-      <h1 style="font-size:clamp(34px,5vw,64px);line-height:1.05;letter-spacing:-.04em;margin:0 0 20px">Cuarenta y seis años mezclando ciencia y trabajo honesto.</h1>
-      <p style="font-size:clamp(16px,1.8vw,19px);color:#626a7a;margin:0 0 16px">DALCA no nació de un gran plan. Nació del compromiso de hacer bien una cosa difícil: fabricar productos químicos en los que una industria entera pudiera confiar.</p>
-      <p style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-top:24px">Más allá de la fórmula</p>
+      <h1 style="font-size:clamp(42px,5.6vw,72px);line-height:1.02;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance;max-width:870px">Cuarenta y seis años mezclando ciencia y trabajo honesto.</h1>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:640px;margin:0">DALCA no nació de un gran plan. Nació del compromiso de hacer bien una cosa difícil: fabricar productos químicos en los que una industria entera pudiera confiar.</p>
+      <p style="font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#322a7a;margin:28px 0 0">Más allá de la fórmula</p>
     </div>
-    <div style="border-radius:28px;overflow:hidden;box-shadow:0 15px 40px rgba(21,24,36,.08)">
-      <img src="assets/nos-hero.jpg" alt="Historia DALCA" style="width:100%;height:clamp(28px,40vh,500px);object-fit:cover">
+    <div style="position:relative;border-radius:34px;overflow:hidden;background:#ddd;box-shadow:0 20px 54px rgba(21,24,36,.11);border:1px solid rgba(255,255,255,.8)">
+      <img src="assets/nos-hero.jpg" alt="Instalaciones históricas de DALCA" style="width:100%;height:560px;object-fit:cover;object-position:center;filter:saturate(1.02)">
+    </div>
+  </header>
+
+  <div style="background:white;border-top:1px solid #d9dde6;border-bottom:1px solid #d9dde6">
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start">
+      <div>
+        <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+          <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Los comienzos<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+        </span>
+        <h2 style="font-size:clamp(32px,4.2vw,52px);line-height:1.07;letter-spacing:-.045em;margin:0 0 22px;text-wrap:balance">Un galpón, muchas ganas y la confianza ganada gota a gota.</h2>
+        <p style="font-size:18px;color:#626a7a;margin:0 0 16px">Septiembre de 1978. En la Zona Industrial El Recreo de Valencia arrancaba DALCA, entonces distribuidora de LAGOVEN —filial de PDVSA— en lubricantes y solventes para todo el país. Era trabajo de base: conocer el producto, ser serio con cada cliente, responder cuando el teléfono sonaba a las seis de la tarde con un problema urgente.</p>
+        <p style="font-size:18px;color:#626a7a;margin:0 0 16px">Lo que empezó como distribución se fue convirtiendo, despacio, en fabricación propia. En fórmulas desarrolladas en casa. En la capacidad de decirle a la industria automotriz venezolana: esto lo hacemos nosotros, con nuestros propios estándares y con nuestra firma en cada lote.</p>
+        <p style="font-size:18px;color:#151824;font-weight:700;margin:0">Así se construyó la reputación: sin atajos, con la honestidad de quien sabe que en química no se puede hacer trampa.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <img src="assets/nos-comienzos-main.jpg" alt="Instalaciones originales, Zona Industrial El Recreo, Valencia, c. 1978" style="grid-column:1 / -1;width:100%;height:300px;object-fit:cover;border-radius:24px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+        <img src="assets/nos-comienzos-a.jpg" alt="Primeros tanques de almacenamiento DALCA" style="width:100%;height:190px;object-fit:cover;border-radius:24px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+        <img src="assets/nos-comienzos-b.jpg" alt="Equipo fundador de DALCA" style="width:100%;height:190px;object-fit:cover;border-radius:24px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+      </div>
     </div>
   </div>
 
-  <div style="background:#322a7a;color:white;padding:44px 24px">
-    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px" class="grid-4col">
-      <sc-for list="{{ aboutStats }}" as="s">
-        <div style="padding:10px">
-          <b style="display:block;font-size:clamp(30px,4.2vw,48px);line-height:1;color:#fff716;font-weight:900">{{ s.big }}</b>
-          <span style="display:block;margin-top:8px;font-size:14px;color:rgba(255,255,255,.82)">{{ s.label }}</span>
+  <div style="background:#322a7a;color:white">
+    <div style="max-width:1180px;margin:0 auto;padding:60px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <sc-for list="{{ aboutStats }}" as="s" hint-placeholder-count="4">
+        <div style="padding:14px 10px">
+          <b style="display:block;font-size:clamp(38px,4.4vw,56px);line-height:1;letter-spacing:-.03em;color:#fff716">{{ s.big }}</b>
+          <span style="display:block;margin-top:12px;font-size:15px;color:rgba(255,255,255,.82)">{{ s.label }}</span>
         </div>
       </sc-for>
     </div>
   </div>
 
-  <div style="max-width:1180px;margin:0 auto;padding:64px 24px">
-    <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-      <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>El recorrido<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px">
+    <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+      <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>El recorrido<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
     </span>
-    <h2 style="font-size:clamp(28px,3.8vw,46px);line-height:1.1;margin:0 0 36px">Cada año, una lección aprendida.</h2>
-    <div style="border-left:2px solid #d9dde6;margin-left:8px;display:grid;gap:28px">
-      <sc-for list="{{ timeline }}" as="t">
-        <article style="position:relative;padding-left:28px">
-          <span style="position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:#e30717;border:2px solid #f3f4f6"></span>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-            <b style="font-size:22px;color:#322a7a;font-weight:900">{{ t.year }}</b>
-            <span style="background:#fff716;color:#322a7a;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900">{{ t.tag }}</span>
+    <h2 style="font-size:clamp(32px,4.2vw,52px);line-height:1.07;letter-spacing:-.045em;margin:0 0 40px;text-wrap:balance;max-width:760px">Cada año, una lección aprendida.</h2>
+    <div style="display:grid;gap:0;border-left:2px solid #d9dde6;margin-left:6px">
+      <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="5">
+        <article style="position:relative;padding:0 0 40px 34px">
+          <span style="position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:#e30717;border:3px solid #f3f4f6"></span>
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px">
+            <b style="font-size:26px;letter-spacing:-.03em;color:#322a7a">{{ t.year }}</b>
+            <span style="display:inline-flex;border-radius:999px;background:#fff716;color:#322a7a;padding:6px 12px;font-size:12px;font-weight:900;letter-spacing:.04em">{{ t.tag }}</span>
           </div>
-          <p style="font-size:15px;color:#626a7a;margin:0">{{ t.desc }}</p>
+          <p style="font-size:17px;color:#626a7a;margin:0;max-width:720px">{{ t.desc }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:white;border-top:1px solid #d9dde6;border-bottom:1px solid #d9dde6">
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;margin-bottom:44px">
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+            <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Lo que fabricamos<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+          </span>
+          <h2 style="font-size:clamp(32px,4.2vw,52px);line-height:1.07;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance">Una empresa, cuatro frentes, un mismo estándar.</h2>
+          <p style="font-size:18px;color:#626a7a;margin:0;max-width:620px">De la industria automotriz a los pozos petroleros, DALCA opera cuatro divisiones especializadas que sirven a los sectores más exigentes de Venezuela e internacionalmente.</p>
+        </div>
+        <img src="assets/nos-divisiones.jpg" alt="Operación de fabricación DALCA" style="width:100%;height:340px;object-fit:cover;border-radius:26px;border:1px solid #d9dde6;box-shadow:0 12px 34px rgba(21,24,36,.08)">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #d9dde6;border-radius:28px;overflow:hidden;box-shadow:0 20px 54px rgba(21,24,36,.11)">
+        <sc-for list="{{ divisions }}" as="d" hint-placeholder-count="4">
+          <article style="padding:32px;border-right:1px solid #d9dde6;border-bottom:1px solid #d9dde6;background:white">
+            <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e30717;font-weight:900;margin-bottom:10px">{{ d.num }}</div>
+            <h3 style="font-size:26px;letter-spacing:-.03em;margin:0 0 12px;color:#322a7a">{{ d.name }}</h3>
+            <p style="color:#626a7a;margin:0;font-size:16px">{{ d.desc }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center">
+    <div style="border-radius:32px;overflow:hidden;border:1px solid #d9dde6;box-shadow:0 20px 54px rgba(21,24,36,.11)">
+      <img src="assets/nos-petrodal.jpg" alt="Equipo PETRODAL en campo y laboratorio" style="width:100%;height:520px;object-fit:cover">
+    </div>
+    <div>
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Empresa del grupo · 2015<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+      </span>
+      <h2 style="font-size:clamp(32px,4.2vw,52px);line-height:1.07;letter-spacing:-.045em;margin:0 0 22px;text-wrap:balance">En 2015, la familia creció.</h2>
+      <p style="font-size:18px;color:#626a7a;margin:0 0 16px">PETRODAL nació de la misma convicción que fundó DALCA: que la calidad real no se negocia. Enfocada exclusivamente en la industria petrolera y del gas, desarrolla productos altamente especializados y respaldados por investigación y desarrollo propios.</p>
+      <p style="font-size:18px;color:#626a7a;margin:0">Donde la industria es más exigente —en los yacimientos, en las refinerías, en los ductos— PETRODAL lleva décadas de conocimiento acumulado y la misma cultura de trabajo que distingue a DALCA: hacer las cosas bien, sin excepciones.</p>
+    </div>
+  </div>
+
+  <div style="background:#151824;color:white">
+    <div style="max-width:1180px;margin:0 auto;padding:96px 24px">
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:white;margin-bottom:28px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Más allá de la fórmula<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+      </span>
+      <blockquote style="margin:0 0 40px;font-size:clamp(28px,3.6vw,46px);line-height:1.14;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:1000px">"Una fórmula puede copiarse. Lo que no se copia es la actitud de quien la desarrolla."</blockquote>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px">
+        <img src="assets/nos-cierre-a.jpg" alt="El equipo detrás de DALCA" style="width:100%;height:360px;object-fit:cover;border-radius:26px;border:1px solid rgba(255,255,255,.12)">
+        <img src="assets/nos-cierre-b.jpg" alt="Laboratorio DALCA en acción" style="width:100%;height:360px;object-fit:cover;border-radius:26px;border:1px solid rgba(255,255,255,.12)">
+      </div>
+      <p style="font-size:19px;color:rgba(255,255,255,.78);margin:0;max-width:900px">El equipo que llega temprano, prueba, ajusta, vuelve a probar. Que entiende que detrás de cada barril de solvente hay una línea de producción que no puede detenerse. Que cuando un cliente llega con un problema, no busca en el catálogo — formula la solución desde cero. En DALCA hemos desarrollado más de 1.500 fórmulas propias, con la última ingeniería y los más altos estándares de calidad, para atender cada necesidad de la industria nacional.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:34px">
+        <a onClick="{{ navProductos }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#fff716;color:#322a7a;cursor:pointer">Ver productos</a>
+        <a onClick="{{ navContacto }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:transparent;border:1px solid rgba(255,255,255,.34);color:white;cursor:pointer">Contactar DALCA</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+</sc-if>
+
+<sc-if value="{{ isFichas }}">
+<section data-screen-label="Fichas Técnicas" style="animation:dalcaFade .18s ease both">
+
+  <header style="max-width:1180px;margin:0 auto;padding:70px 24px 30px">
+    <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+      <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Documentación técnica<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+    </span>
+    <h1 style="font-size:clamp(38px,5vw,64px);line-height:1.03;letter-spacing:-.05em;margin:0 0 20px;text-wrap:balance;max-width:860px">Fichas técnicas de nuestros productos.</h1>
+    <p style="font-size:clamp(17px,1.9vw,21px);color:#626a7a;max-width:720px;margin:0">Consulta y descarga las hojas técnicas de la línea DALCA: características, uso, precauciones, ingredientes y datos de ensayo de cada producto. Haz clic en una ficha para verla en pantalla completa.</p>
+  </header>
+
+  <div style="max-width:1180px;margin:0 auto;padding:0 24px 24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <sc-for list="{{ fichaFilters }}" as="fil" hint-placeholder-count="5">
+        <button type="button" onClick="{{ fil.onClick }}" style="border:1px solid #d9dde6;border-radius:999px;padding:11px 18px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;background:{{ fil.bg }};color:{{ fil.color }}">{{ fil.label }}</button>
+      </sc-for>
+    </div>
+    <div style="position:relative;flex:1;min-width:240px;max-width:340px">
+      <input type="search" placeholder="Buscar por nombre o código…" onInput="{{ onSearch }}" style="width:100%;border:1px solid #d9dde6;border-radius:999px;background:white;padding:13px 18px 13px 44px;font-size:15px;font-family:inherit;color:#151824">
+      <span style="position:absolute;left:17px;top:50%;transform:translateY(-50%);color:#9aa1b0;font-size:16px;pointer-events:none">⌕</span>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:6px 24px 90px">
+    <p style="color:#626a7a;font-size:14px;margin:0 0 22px">{{ fichaCount }} fichas</p>
+    <sc-if value="{{ hasFichas }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px">
+        <sc-for list="{{ fichas }}" as="f" hint-placeholder-count="8">
+          <article style="background:white;border:1px solid #d9dde6;border-radius:22px;overflow:hidden;box-shadow:0 10px 28px rgba(21,24,36,.055);display:flex;flex-direction:column">
+            <button type="button" onClick="{{ f.onOpen }}" title="Ver en pantalla completa" style="border:0;padding:0;margin:0;cursor:zoom-in;background:#f0f1f4;border-bottom:1px solid #d9dde6;display:block;width:100%;position:relative">
+              <img src="{{ f.img }}" alt="Ficha técnica {{ f.name }}" loading="lazy" style="width:100%;aspect-ratio:1414/2000;object-fit:cover;object-position:top;display:block">
+              <span style="position:absolute;top:12px;right:12px;background:rgba(50,42,122,.92);color:white;font-size:11px;font-weight:900;letter-spacing:.04em;padding:6px 10px;border-radius:999px">{{ f.cat }}</span>
+            </button>
+            <div style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1">
+              <h3 style="font-size:17px;line-height:1.2;margin:0;letter-spacing:-.02em">{{ f.name }}</h3>
+              <span style="font-size:13px;color:#9aa1b0;font-weight:600">Código: {{ f.code }}</span>
+              <div style="display:flex;gap:14px;margin-top:12px;align-items:center">
+                <button type="button" onClick="{{ f.onOpen }}" style="border:0;background:none;padding:0;font-weight:900;color:#322a7a;cursor:pointer;font-family:inherit;font-size:14px">Ver completa</button>
+                <a href="{{ f.img }}" download target="_blank" rel="noopener" style="font-weight:900;color:#626a7a;font-size:14px">Descargar</a>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px dashed #d9dde6;border-radius:22px;padding:60px 24px;text-align:center;background:white">
+        <p style="font-size:18px;color:#626a7a;margin:0">No se encontraron fichas para tu búsqueda.</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(15,17,26,.86);backdrop-filter:blur(6px);display:flex;flex-direction:column;padding:24px;overflow:auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:900px;width:100%;margin:0 auto 16px;color:white;flex-shrink:0">
+          <div>
+            <div style="font-size:18px;font-weight:900;letter-spacing:-.02em">{{ lightbox.name }}</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.6)">Código: {{ lightbox.code }}</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <a href="{{ lightbox.img }}" download target="_blank" rel="noopener" onClick="{{ stop }}" style="background:#fff716;color:#322a7a;border-radius:999px;padding:10px 18px;font-weight:900;font-size:14px">Descargar</a>
+            <button type="button" onClick="{{ closeLightbox }}" aria-label="Cerrar" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:white;font-size:22px;line-height:1;cursor:pointer;font-family:inherit">×</button>
+          </div>
+        </div>
+        <img src="{{ lightbox.img }}" alt="Ficha técnica {{ lightbox.name }}" style="max-width:900px;width:100%;height:auto;margin:0 auto;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);display:block">
+      </div>
+    </sc-if>
+  </div>
+
+</section>
+</sc-if>
+
+<sc-if value="{{ isProductos }}">
+<section style="animation:dalcaFade .18s ease both">
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center">
+    <div>
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Productos<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+      </span>
+      <h1 style="font-size:clamp(42px,5.8vw,74px);line-height:1.02;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance;max-width:870px">Clasificación por línea con productos activos.</h1>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:760px;margin:0">Esta página ordena el portafolio para que el comprador encuentre rápido el producto correcto y pueda iniciar una solicitud comercial.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a onClick="{{ navCatalog }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white;cursor:pointer">Ver catálogo</a>
+        <a onClick="{{ navContacto }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:white;border:1px solid #d9dde6;color:#151824;cursor:pointer">Cotizar producto</a>
+      </div>
+    </div>
+    <div style="border-radius:30px;overflow:hidden;border:1px solid #d9dde6;box-shadow:0 20px 54px rgba(21,24,36,.11);background:white">
+      <img src="assets/img05.jpg" alt="Productos de la línea solventes DALCA" style="width:100%;height:440px;object-fit:cover">
+    </div>
+  </div>
+
+  <div style="background:white;border-top:1px solid #d9dde6;border-bottom:1px solid #d9dde6">
+    <div style="max-width:1180px;margin:0 auto;padding:86px 24px">
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Líneas principales<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+      </span>
+      <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">Una lectura clara del portafolio.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px">
+        <sc-for list="{{ lineCards }}" as="lc" hint-placeholder-count="3">
+          <article style="background:white;border:1px solid #d9dde6;border-radius:26px;overflow:hidden;box-shadow:0 12px 34px rgba(21,24,36,.06)">
+            <img src="{{ lc.img }}" alt="{{ lc.name }}" style="width:100%;height:220px;object-fit:cover">
+            <div style="padding:22px">
+              <h3 style="font-size:24px;margin:0 0 8px">{{ lc.name }}</h3>
+              <p style="color:#626a7a;margin:0">{{ lc.desc }}</p>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div id="catalogo" style="max-width:1180px;margin:0 auto;padding:86px 24px">
+    <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+      <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Catálogo visual<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
+    </span>
+    <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px;text-wrap:balance;max-width:900px">Productos destacados con imagen.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:30px">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="9">
+        <article style="background:white;border:1px solid #d9dde6;border-radius:26px;overflow:hidden;box-shadow:0 10px 28px rgba(21,24,36,.055);display:flex;flex-direction:column">
+          <figure style="margin:0;background:#f0f1f4;border-bottom:1px solid #d9dde6"><img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:260px;object-fit:contain;padding:14px"></figure>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:8px;flex:1">
+            <span style="align-self:flex-start;display:inline-flex;border-radius:999px;background:#fff716;color:#322a7a;padding:7px 11px;font-size:12px;font-weight:900">{{ p.tag }}</span>
+            <h3 style="font-size:22px;line-height:1.1;margin:0">{{ p.name }}</h3>
+            <p style="color:#626a7a;margin:0;flex:1">{{ p.desc }}</p>
+            <a onClick="{{ p.onContact }}" style="font-weight:900;color:#322a7a;margin-top:10px;cursor:pointer">Solicitar información</a>
+          </div>
         </article>
       </sc-for>
     </div>
@@ -230,123 +453,44 @@ img{display:block;max-width:100%}
 </section>
 </sc-if>
 
-<!-- SECCIÓN PRODUCTOS + FICHAS TÉCNICAS (UNIFICADO) -->
-<sc-if value="{{ isProductos }}">
-<section style="animation:dalcaFade .18s ease both">
-  <div style="max-width:1180px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr;gap:44px" class="grid-2col">
-    <div>
-      <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-        <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Portafolio Global<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
-      </span>
-      <h1 style="font-size:clamp(34px,5vw,64px);line-height:1.05;letter-spacing:-.04em;margin:0 0 20px">Nuestros Productos y Especificaciones.</h1>
-      <p style="font-size:clamp(16px,1.8vw,19px);color:#626a7a;margin:0 0 24px">Explora nuestro catálogo completo. Haz clic en la imagen del envase para ampliar los detalles o pulsa en <b>"Ver Ficha Técnica"</b> para acceder a la documentación oficial.</p>
-    </div>
-    <div style="border-radius:24px;overflow:hidden;border:1px solid #d9dde6;box-shadow:0 15px 40px rgba(21,24,36,.06)">
-      <img src="assets/img05.jpg" alt="Línea DALCA" style="width:100%;height:320px;object-fit:cover">
-    </div>
-  </div>
-
-  <!-- Buscador y Filtros integrados en catálogo -->
-  <div id="catalogo" style="max-width:1180px;margin:0 auto;padding:32px 24px 86px">
-    <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:34px;justify-content:space-between" class="row-strip">
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <sc-for list="{{ fichaFilters }}" as="fil">
-          <button type="button" onClick="{{ fil.onClick }}" style="border:1px solid #d9dde6;border-radius:999px;padding:9px 16px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;background:{{ fil.bg }};color:{{ fil.color }}">{{ fil.label }}</button>
-        </sc-for>
-      </div>
-      <div style="position:relative;width:100%;max-width:340px">
-        <input type="search" placeholder="Buscar por producto o código…" onInput="{{ onSearch }}" style="width:100%;border:1px solid #d9dde6;border-radius:999px;background:white;padding:11px 16px 11px 40px;font-size:14px;font-family:inherit">
-        <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#9aa1b0;font-size:15px">⌕</span>
-      </div>
-    </div>
-
-    <!-- Grid de Tarjetas de Producto -->
-    <sc-if value="{{ hasFichas }}">
-      <div class="grid-3col">
-        <sc-for list="{{ fichas }}" as="p">
-          <article class="product-card">
-            <!-- Disparador Lightbox: Imagen de Envase/Producto -->
-            <button type="button" onClick="{{ p.onZoomImg }}" title="Ampliar Imagen de Producto" style="border:0;padding:0;margin:0;cursor:zoom-in;background:#f8f9fa;display:block;width:100%;overflow:hidden;position:relative">
-              <img src="{{ p.prodImg }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:280px;object-fit:contain;padding:16px">
-              <span style="position:absolute;top:12px;right:12px;background:rgba(50,42,122,.92);color:white;font-size:11px;font-weight:900;padding:5px 10px;border-radius:999px">{{ p.cat }}</span>
-            </button>
-            
-            <div style="padding:20px;display:flex;flex-direction:column;gap:6px;flex:1">
-              <h3 style="font-size:19px;font-weight:800;line-height:1.2;margin:0;letter-spacing:-.01em;color:#151824">{{ p.name }}</h3>
-              <span style="font-size:13px;color:#9aa1b0;font-weight:600;margin-bottom:10px">Código: {{ p.code }}</span>
-              
-              <!-- Botones de Acción -->
-              <div style="display:flex;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid #f0f1f4;align-items:center">
-                <button type="button" onClick="{{ p.onOpen }}" class="touch-btn" style="background:#322a7a;color:white;flex:1">Ver Ficha Técnica</button>
-                <a onClick="{{ p.onContact }}" class="touch-btn" style="background:white;border:1px solid #d9dde6;color:#322a7a;padding:10px 14px" title="Solicitar Cotización">Cotizar</a>
-              </div>
-            </div>
-          </article>
-        </sc-for>
-      </div>
-    </sc-if>
-    
-    <sc-if value="{{ isEmpty }}">
-      <div style="border:1px dashed #d9dde6;border-radius:22px;padding:50px 24px;text-align:center;background:white">
-        <p style="font-size:16px;color:#626a7a;margin:0">No se encontraron productos coincidentes.</p>
-      </div>
-    </sc-if>
-  </div>
-
-  <!-- SISTEMA MODAL INTERACTIVO (LIGHTBOX UNIFICADO) -->
-  <sc-if value="{{ lightboxOpen }}">
-    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(15,17,26,.9);backdrop-filter:blur(8px);display:flex;flex-direction:column;padding:16px;overflow:auto">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:800px;width:100%;margin:0 auto 12px;color:white;flex-shrink:0">
-        <div>
-          <div style="font-size:17px;font-weight:800">{{ lightbox.name }}</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6)">Código: {{ lightbox.code }}</div>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <sc-if value="{{ lightbox.isFichaMode }}">
-            <a href="{{ lightbox.img }}" download target="_blank" rel="noopener" onClick="{{ stop }}" style="background:#fff716;color:#322a7a;border-radius:999px;padding:8px 16px;font-weight:900;font-size:13px;text-decoration:none">Descargar Ficha</a>
-          </sc-if>
-          <button type="button" onClick="{{ closeLightbox }}" style="width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:white;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
-        </div>
-      </div>
-      <img src="{{ lightbox.currentSrc }}" alt="Visualización ampliada" style="max-width:800px;width:100%;height:auto;margin:auto;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.6);display:block">
-    </div>
-  </sc-if>
-</section>
-</sc-if>
-
-<!-- SECCIÓN CONTACTO -->
 <sc-if value="{{ isContacto }}">
 <section style="animation:dalcaFade .18s ease both">
-  <div style="max-width:1180px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr;gap:44px" class="grid-2col">
+  <div style="max-width:1180px;margin:0 auto;padding:86px 24px;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start">
     <div>
-      <span style="display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:16px">
-        <span style="width:30px;height:6px;border-radius:99px;background:#e30717"></span>Contacto<span style="width:30px;height:6px;border-radius:99px;background:#fff716"></span>
+      <span style="display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#322a7a;margin-bottom:20px">
+        <span style="width:38px;height:8px;border-radius:99px;background:#e30717"></span>Contacto<span style="width:38px;height:8px;border-radius:99px;background:#fff716"></span>
       </span>
-      <h1 style="font-size:clamp(34px,5vw,64px);line-height:1.05;margin:0 0 20px">Solicita producto o información técnica.</h1>
-      <p style="font-size:16px;color:#626a7a;margin:0 0 24px">Completa el formulario o escribe directamente por WhatsApp para recibir soporte comercial inmediato.</p>
-      <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" class="touch-btn" style="background:#322a7a;color:white;width:100%">WhatsApp Comercial</a>
+      <h1 style="font-size:clamp(42px,5.8vw,74px);line-height:1.02;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance;max-width:870px">Solicita producto, disponibilidad o información técnica.</h1>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;max-width:760px;margin:0">Completa el formulario o escribe directamente por WhatsApp para que el equipo comercial pueda orientarte según línea, presentación y aplicación.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+        <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white">WhatsApp DALCA</a>
+      </div>
+      <div style="border-radius:30px;overflow:hidden;border:1px solid #d9dde6;box-shadow:0 20px 54px rgba(21,24,36,.11);background:white;margin-top:30px">
+        <img src="assets/img28.jpg" alt="Tanques DALCA" style="width:100%;height:440px;object-fit:cover">
+      </div>
     </div>
-    <div style="background:white;border:1px solid #d9dde6;border-radius:24px;padding:24px;box-shadow:0 15px 40px rgba(21,24,36,.06)">
-      <form onSubmit="{{ submit }}" style="display:grid;gap:14px">
-        <label style="display:grid;gap:6px;font-weight:700;font-size:14px">Nombre<input required name="nombre" style="border:1px solid #d9dde6;border-radius:12px;padding:12px;width:100%"></label>
-        <label style="display:grid;gap:6px;font-weight:700;font-size:14px">Empresa<input name="empresa" style="border:1px solid #d9dde6;border-radius:12px;padding:12px;width:100%"></label>
-        <label style="display:grid;gap:6px;font-weight:700;font-size:14px">WhatsApp<input name="telefono" placeholder="Ej: +58..." style="border:1px solid #d9dde6;border-radius:12px;padding:12px;width:100%"></label>
-        <label style="display:grid;gap:6px;font-weight:700;font-size:14px">Mensaje<textarea name="mensaje" style="border:1px solid #d9dde6;border-radius:12px;padding:12px;width:100%;min-height:90px;resize:vertical"></textarea></label>
-        <button type="submit" class="touch-btn" style="background:#322a7a;color:white;border:0">Enviar solicitud</button>
+    <div style="background:white;border:1px solid #d9dde6;border-radius:30px;padding:30px;box-shadow:0 20px 54px rgba(21,24,36,.11)">
+      <form onSubmit="{{ submit }}" style="display:grid;gap:15px">
+        <label style="display:grid;gap:7px;font-weight:800;color:#323746">Nombre<input required name="nombre" placeholder="Nombre y apellido" style="border:1px solid #d9dde6;border-radius:15px;background:#fbfcfd;padding:14px 15px;color:#151824;width:100%"></label>
+        <label style="display:grid;gap:7px;font-weight:800;color:#323746">Empresa<input name="empresa" placeholder="Nombre de la empresa" style="border:1px solid #d9dde6;border-radius:15px;background:#fbfcfd;padding:14px 15px;color:#151824;width:100%"></label>
+        <label style="display:grid;gap:7px;font-weight:800;color:#323746">Teléfono / WhatsApp<input name="telefono" placeholder="Ej: +58..." style="border:1px solid #d9dde6;border-radius:15px;background:#fbfcfd;padding:14px 15px;color:#151824;width:100%"></label>
+        <label style="display:grid;gap:7px;font-weight:800;color:#323746">Línea de interés<select name="linea" style="border:1px solid #d9dde6;border-radius:15px;background:#fbfcfd;padding:14px 15px;color:#151824;width:100%"><option>Solventes / Varsol / Dalsol</option><option>Thinner</option><option>Automotor</option><option>Industrial</option><option>Hogar / comercio</option><option>PetroDal / DAL994</option></select></label>
+        <label style="display:grid;gap:7px;font-weight:800;color:#323746">Mensaje<textarea name="mensaje" placeholder="Indica producto, presentación, volumen aproximado o aplicación." style="border:1px solid #d9dde6;border-radius:15px;background:#fbfcfd;padding:14px 15px;color:#151824;width:100%;min-height:124px;resize:vertical"></textarea></label>
+        <button type="submit" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white;border:1px solid transparent;cursor:pointer">Enviar solicitud</button>
       </form>
     </div>
   </div>
 </section>
 </sc-if>
 
-<!-- SECCIÓN GRACIAS -->
 <sc-if value="{{ isGracias }}">
 <section style="animation:dalcaFade .18s ease both">
-  <div style="min-height:60vh;display:grid;place-items:center;text-align:center;padding:48px 24px">
-    <div style="background:white;border:1px solid #d9dde6;border-radius:28px;padding:40px;max-width:600px;box-shadow:0 15px 40px rgba(21,24,36,.06)">
-      <h1 style="font-size:32px;margin:0 0 14px">Solicitud recibida.</h1>
-      <p style="color:#626a7a;font-size:16px;margin:0 0 24px">Gracias por contactar a DALCA. Nuestro equipo revisará la información y te responderá a la brevedad posible.</p>
-      <a onClick="{{ navInicio }}" class="touch-btn" style="background:#322a7a;color:white">Volver al inicio</a>
+  <div style="min-height:72vh;display:grid;place-items:center;text-align:center;padding:86px 24px">
+    <div style="background:white;border:1px solid #d9dde6;border-radius:34px;box-shadow:0 20px 54px rgba(21,24,36,.11);padding:56px;max-width:760px">
+      <img src="assets/img01.png" alt="DALCA" style="height:54px;margin:0 auto 24px">
+      <h1 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;letter-spacing:-.045em;margin:0 0 18px">Solicitud recibida.</h1>
+      <p style="font-size:clamp(18px,2vw,22px);color:#626a7a;margin:0 auto 26px;max-width:600px">Gracias por contactar a DALCA. El equipo comercial podrá revisar la solicitud y responder con disponibilidad, aplicación y próximos pasos.</p>
+      <a onClick="{{ navInicio }}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:999px;font-weight:900;background:#322a7a;color:white;cursor:pointer">Volver al inicio</a>
     </div>
   </div>
 </section>
@@ -354,23 +498,23 @@ img{display:block;max-width:100%}
 
 </main>
 
-<!-- FOOTER ACTUALIZADO -->
 <footer style="background:#e9ebef;border-top:1px solid #d9dde6">
-  <div style="max-width:1180px;margin:0 auto;padding:44px 24px;display:grid;grid-template-columns:1fr;gap:32px;color:#626a7a" class="grid-3col">
+  <div style="max-width:1180px;margin:0 auto;padding:36px 24px;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:28px;color:#626a7a">
     <div>
-      <img src="assets/img01.png" alt="DALCA" style="height:38px;width:auto;margin-bottom:12px">
-      <p style="margin:0;font-size:14.5px">Química industrial para operaciones que no pueden detenerse.</p>
+      <img src="assets/img01.png" alt="DALCA" style="height:44px;width:auto;margin-bottom:14px">
+      <p style="margin:0">Química industrial para operaciones que no pueden detenerse.</p>
     </div>
     <div>
-      <strong style="color:#303544;display:block;margin-bottom:10px">Mapa</strong>
-      <a onClick="{{ navInicio }}" style="display:block;margin:6px 0;color:#303544;font-weight:700;cursor:pointer;text-decoration:none;font-size:14.5px">Inicio</a>
-      <a onClick="{{ navNosotros }}" style="display:block;margin:6px 0;color:#303544;font-weight:700;cursor:pointer;text-decoration:none;font-size:14.5px">Nosotros</a>
-      <a onClick="{{ navProductos }}" style="display:block;margin:6px 0;color:#303544;font-weight:700;cursor:pointer;text-decoration:none;font-size:14.5px">Productos</a>
-      <a onClick="{{ navContacto }}" style="display:block;margin:6px 0;color:#303544;font-weight:700;cursor:pointer;text-decoration:none;font-size:14.5px">Contacto</a>
+      <strong style="color:#303544">Mapa</strong>
+      <a onClick="{{ navInicio }}" style="display:block;margin:8px 0;color:#303544;font-weight:700;cursor:pointer">Inicio</a>
+      <a onClick="{{ navNosotros }}" style="display:block;margin:8px 0;color:#303544;font-weight:700;cursor:pointer">Nosotros</a>
+      <a onClick="{{ navProductos }}" style="display:block;margin:8px 0;color:#303544;font-weight:700;cursor:pointer">Productos</a>
+      <a onClick="{{ navFichas }}" style="display:block;margin:8px 0;color:#303544;font-weight:700;cursor:pointer">Fichas Técnicas</a>
+      <a onClick="{{ navContacto }}" style="display:block;margin:8px 0;color:#303544;font-weight:700;cursor:pointer">Contacto</a>
     </div>
     <div>
-      <strong style="color:#303544;display:block;margin-bottom:10px">DALCA Venezuela</strong>
-      <p style="margin:0;font-size:14.5px">Valencia, Carabobo · Atención a industria, comercio, talleres y distribuidores.</p>
+      <strong style="color:#303544">DALCA Venezuela</strong>
+      <p style="margin:8px 0 0">Valencia, Carabobo · Atención a industria, comercio, talleres y distribuidores.</p>
     </div>
   </div>
 </footer>
@@ -379,33 +523,20 @@ img{display:block;max-width:100%}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { route: 'inicio', fichaFilter: 'Todas', fichaQuery: '', lightbox: null, menuOpen: false };
+  state = { route: 'inicio', fichaFilter: 'Todas', fichaQuery: '', lightbox: null };
 
   go(id) {
-    this.setState({ route: id, menuOpen: false });
+    this.setState({ route: id });
     requestAnimationFrame(() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); } });
-  }
-
-  toggleMenu() {
-    this.setState({ menuOpen: !this.state.menuOpen });
   }
 
   setFilter(cat) { this.setState({ fichaFilter: cat }); }
   setQuery(e) { this.setState({ fichaQuery: e && e.target ? e.target.value : '' }); }
-  
-  openLightbox(f, mode) { 
-    this.setState({ 
-      lightbox: { 
-        ...f, 
-        isFichaMode: mode === 'ficha',
-        currentSrc: mode === 'ficha' ? f.img : f.prodImg 
-      } 
-    }); 
-  }
+  openLightbox(f) { this.setState({ lightbox: f }); }
   closeLightbox() { this.setState({ lightbox: null }); }
 
   goCatalog() {
-    this.setState({ route: 'productos', menuOpen: false });
+    this.setState({ route: 'productos' });
     setTimeout(() => {
       const el = document.getElementById('catalogo');
       if (el) {
@@ -429,6 +560,7 @@ class Component extends DCLogic {
       { id: 'inicio', label: 'Inicio' },
       { id: 'nosotros', label: 'Nosotros' },
       { id: 'productos', label: 'Productos' },
+      { id: 'fichas', label: 'Fichas Técnicas' },
       { id: 'contacto', label: 'Contacto' },
     ].map(n => ({ ...n, active: route === n.id, onClick: nav(n.id) }));
 
@@ -453,38 +585,75 @@ class Component extends DCLogic {
       { num: '04', title: 'Operaciones', desc: 'Soluciones para empresas que requieren continuidad, despacho y soporte comercial.' },
     ];
 
-    // Colección unificada de Productos + Fichas Técnicas + Imagen del envase actualizada
-    const allFichas = [
-      { code: 'DAL-50-AT-BA', name: 'Thinner Acrílico Alta Tecnología', cat: 'Thinner', img: 'assets/ficha-50atba.png', prodImg: 'assets/DSC06020.jpg', desc: 'Línea premium para aplicaciones de acabado y reacabado automotriz de mayor exigencia.' },
-      { code: 'DAL-50-T-A-MA-T-BO', name: 'Thinner Acrílico Brillante', cat: 'Thinner', img: 'assets/ficha-50bo.png', prodImg: 'assets/img17.jpg', desc: 'Producto para acabados acrílicos que requieren óptimo desempeño y excelente presentación comercial.' },
-      { code: 'DAL-50-T-A-MA-T-X', name: 'Thinner Acrílico', cat: 'Thinner', img: 'assets/ficha-50x.png', prodImg: 'assets/img16.jpg', desc: 'Solución balanceada para aplicaciones acrílicas convencionales y trabajos de acabado diario.' },
-      { code: 'DAL-1142', name: 'Dalverd Thinner Multiuso', cat: 'Thinner', img: 'assets/ficha-1142.png', prodImg: 'assets/img15.jpg', desc: 'Thinner multiuso de gran versatilidad para talleres, comercios y tareas generales de dilución.' },
-      { code: 'DAL-1364', name: 'Solvente Universal', cat: 'Solventes', img: 'assets/ficha-1364.png', prodImg: 'assets/img14.jpg', desc: 'Producto altamente versátil ideal para sistemas poliéster, poliuretano, antifouling y epoxi.' },
-      { code: 'DAL-1360', name: 'Orientador de Partículas Automotrices', cat: 'Solventes', img: 'assets/ficha-1360.png', prodImg: 'assets/img10.jpg', desc: 'Solvente técnico especializado para la alineación y homogeneización de partículas metálicas.' },
-      { code: 'DAL-223C', name: 'Dalsol', cat: 'Solventes', img: 'assets/ficha-223c.png', prodImg: 'assets/img12.jpg', desc: 'Limpiador y desengrasante multiuso idóneo para entornos residenciales, comerciales e industriales.' },
-      { code: 'DAL-1280', name: 'Refrigerante 50/50 Verde OAT', cat: 'Automotor', img: 'assets/ficha-1280.png', prodImg: 'assets/img22.jpg', desc: 'Líquido refrigerante de tecnología orgánica premium para la máxima protección del sistema de radiador.' },
-      { code: 'DAL-1282', name: 'Refrigerante 50/50 Rojo OAT', cat: 'Automotor', img: 'assets/ficha-1282.png', prodImg: 'assets/img22.jpg', desc: 'Fórmula protectora refrigerante de larga duración para motores exigentes y flotas comerciales.' },
-      { code: 'DAL-1076-C', name: 'Diesel Booster', cat: 'Automotor', img: 'assets/ficha-1076c.png', prodImg: 'assets/img24.jpg', desc: 'Aditivo estabilizador y optimizador de combustible diésel para operaciones y mantenimiento de flotas.' },
-      { code: 'DAL-1077', name: 'Limpiador de Inyectores Gasolina (Injetech)', cat: 'Automotor', img: 'assets/ficha-1077.png', prodImg: 'assets/img23.jpg', desc: 'Aditivo formulado para la limpieza profunda del sistema de inyección a gasolina en talleres.' },
-      { code: 'DAL-1374', name: 'Limpiador y Renovador de Gomas', cat: 'Automotor', img: 'assets/ficha-1374.png', prodImg: 'assets/img25.jpg', desc: 'Acondicionador técnico para la preservación, flexibilidad y brillo de componentes elastómeros.' },
-      { code: 'DAL-226', name: 'Kerosol', cat: 'Hogar', img: 'assets/ficha-226.png', prodImg: 'assets/img20.jpg', desc: 'Limpiador solvente doméstico seguro y eficaz con amplia aplicación en redes de distribución.' },
+    const lineCards = [
+      { img: 'assets/img10.jpg', name: 'Solventes', desc: 'Varsol/Dalsol, Prepsol, solvente industrial, thinner y orientadores.' },
+      { img: 'assets/img11.jpg', name: 'Automotor', desc: 'Aditivos, refrigerantes, limpiadores y recubrimientos para talleres.' },
+      { img: 'assets/img12.jpg', name: 'Hogar / comercio', desc: 'Limpiadores y desengrasantes con aplicación comercial y distribución.' },
     ];
 
+    const products = [
+      { img: 'assets/img10.jpg', tag: 'Solventes', name: 'Varsol / Dalsol', desc: 'Uno de los productos clave para fabricación, limpieza técnica, desengrase y procesos industriales.' },
+      { img: 'assets/img14.jpg', tag: 'Solventes', name: 'Solvente Prepsol', desc: 'Solvente de preparación para aplicaciones automotrices y procesos de superficie.' },
+      { img: 'assets/img15.jpg', tag: 'Thinner', name: 'Dalverd Thinner Multiuso', desc: 'Thinner multiuso para talleres, comercio e industria.' },
+      { img: 'assets/img16.jpg', tag: 'Thinner', name: 'Thinner Acrílico', desc: 'Solución para aplicaciones acrílicas y trabajos de acabado.' },
+      { img: 'assets/img17.jpg', tag: 'Thinner', name: 'Thinner Acrílico Brillante', desc: 'Producto para acabados que requieren desempeño y presentación comercial.' },
+      { img: 'assets/img18.jpg', tag: 'Thinner', name: 'Thinner Alta Tecnología', desc: 'Línea premium para aplicaciones de mayor exigencia.' },
+      { img: 'assets/img14.jpg', tag: 'Solventes', name: 'Solvente Universal', desc: 'Producto versátil para poliéster, poliuretano, antifouling y epoxi.' },
+      { img: 'assets/img20.jpg', tag: 'Hogar / comercio', name: 'Kerosol', desc: 'Limpiador doméstico con aplicación comercial y de distribución.' },
+      { img: 'assets/img12.jpg', tag: 'Hogar / industrial', name: 'Dalsol', desc: 'Limpiador y desengrasante multiuso para hogares, comercios y operación.' },
+      { img: 'assets/img22.jpg', tag: 'Automotor', name: 'Refrigerante', desc: 'Producto para mantenimiento automotor, talleres y distribuidores.' },
+      { img: 'assets/img23.jpg', tag: 'Automotor', name: 'Gasoline Booster', desc: 'Aditivo de gasolina para línea automotor.' },
+      { img: 'assets/img24.jpg', tag: 'Automotor', name: 'Diesel Booster', desc: 'Aditivo para diésel orientado a operación y mantenimiento.' },
+      { img: 'assets/img25.jpg', tag: 'Automotor', name: 'DalCoat Automotor', desc: 'Recubrimiento anticorrosivo de alto rendimiento para aplicaciones automotrices.' },
+      { img: 'assets/img26.jpg', tag: 'Industrial', name: 'Removedor de Óxido', desc: 'Acondicionador de metales y solución para mantenimiento industrial.' },
+      { img: 'assets/img27.jpg', tag: 'Industrial', name: 'Daltron Desengrasante Dieléctrico', desc: 'Desengrasante dieléctrico para equipos eléctricos y sistemas de refrigeración.' },
+    ].map(p => ({ ...p, onContact: contact }));
+
+    const aboutStats = [
+      { big: '46', label: 'Años en operación' },
+      { big: '+1.2M', label: 'Litros de capacidad de almacenamiento' },
+      { big: '4', label: 'Divisiones especializadas' },
+      { big: 'ISO', label: 'Primeros en Latinoamérica, solventes orgánicos' },
+    ];
+
+    const timeline = [
+      { year: '1978', tag: 'Fundación', desc: 'DALCA abre en Valencia como distribuidora de LAGOVEN (PDVSA) para lubricantes y solventes industriales en todo el territorio nacional.' },
+      { year: '1995', tag: 'ISO 9002', desc: 'Primera empresa latinoamericana en obtener la ISO 9002 para mezcla de solventes orgánicos. El rigor, reconocido a nivel internacional.' },
+      { year: '1996', tag: 'Expansión', desc: 'Inicio de producción propia para el mercado de recabado automotriz y la industria de la madera. Ya no solo distribuimos.' },
+      { year: '1998', tag: 'QS-9000', desc: 'Certificación QS-9000 por TÜV Rheinland. Arrancan las líneas de pinturas industriales, arquitectónicas y de tráfico.' },
+      { year: '2015', tag: 'PETRODAL', desc: 'Nace la empresa hermana. El mismo ADN, enfocado ahora en la industria petrolera y del gas con productos de alta ingeniería.' },
+    ];
+
+    const divisions = [
+      { num: 'División I', name: 'Químicos', desc: 'Formulación y mezclado de desengrasantes, adelgazantes y alcoholes industriales para la industria automotriz, plástica, de aluminio, flexográfica, litográfica y de rotograbado. El conocimiento de décadas en cada mezcla.' },
+      { num: 'División II', name: 'Automotor', desc: 'Líderes en el mercado OEM venezolano. Suministramos disolventes y desengrasantes a Ford, GM, DaimlerChrysler, Toyota y Mack, entre otras. Más de 20 años fabricando refrigerantes para radiador con la confianza de las grandes ensambladoras.' },
+      { num: 'División III', name: 'Comercial', desc: 'Pinturas industriales, arquitectónicas y de tráfico. Removedores, barnices, lacas, selladores e impermeabilizantes para madera, autopartes y construcción. Todo bajo el mismo control de calidad riguroso que nos define desde 1978.' },
+      { num: 'División IV', name: 'Petrolera', desc: 'Oil Field Chemicals para estimulación de pozos y refinerías. Solventes de limpieza, reductores de viscosidad, inhibidores de corrosión y diluyentes de parafina y asfalteno para las operaciones más críticas del sector.' },
+    ];
+
+    const allFichas = [
+      { code: 'DAL-50-AT-BA', name: 'Thinner Acrílico Alta Tecnología', cat: 'Thinner', img: 'assets/ficha-50atba.png' },
+      { code: 'DAL-50-T-A-MA-T-BO', name: 'Thinner Acrílico Brillante', cat: 'Thinner', img: 'assets/ficha-50bo.png' },
+      { code: 'DAL-50-T-A-MA-T-X', name: 'Thinner Acrílico', cat: 'Thinner', img: 'assets/ficha-50x.png' },
+      { code: 'DAL-1142', name: 'Dalverd Thinner Multiuso', cat: 'Thinner', img: 'assets/ficha-1142.png' },
+      { code: 'DAL-1364', name: 'Solvente Universal', cat: 'Solventes', img: 'assets/ficha-1364.png' },
+      { code: 'DAL-1360', name: 'Orientador de Partículas Automotrices', cat: 'Solventes', img: 'assets/ficha-1360.png' },
+      { code: 'DAL-223C', name: 'Dalsol', cat: 'Solventes', img: 'assets/ficha-223c.png' },
+      { code: 'DAL-1280', name: 'Refrigerante 50/50 Verde OAT', cat: 'Automotor', img: 'assets/ficha-1280.png' },
+      { code: 'DAL-1282', name: 'Refrigerante 50/50 Rojo OAT', cat: 'Automotor', img: 'assets/ficha-1282.png' },
+      { code: 'DAL-1076-C', name: 'Diesel Booster', cat: 'Automotor', img: 'assets/ficha-1076c.png' },
+      { code: 'DAL-1077', name: 'Limpiador de Inyectores Gasolina (Injetech)', cat: 'Automotor', img: 'assets/ficha-1077.png' },
+      { code: 'DAL-1374', name: 'Limpiador y Renovador de Gomas', cat: 'Automotor', img: 'assets/ficha-1374.png' },
+      { code: 'DAL-226', name: 'Kerosol', cat: 'Hogar', img: 'assets/ficha-226.png' },
+    ];
     const fichaCats = ['Todas', 'Thinner', 'Solventes', 'Automotor', 'Hogar'];
     const q = (this.state.fichaQuery || '').trim().toLowerCase();
     const activeCat = this.state.fichaFilter || 'Todas';
-    
     const fichas = allFichas.filter(f => {
       const catOk = activeCat === 'Todas' || f.cat === activeCat;
       const qOk = !q || f.name.toLowerCase().includes(q) || f.code.toLowerCase().includes(q);
       return catOk && qOk;
-    }).map(f => ({ 
-      ...f, 
-      onOpen: () => this.openLightbox(f, 'ficha'),
-      onZoomImg: () => this.openLightbox(f, 'producto'),
-      onContact: contact
-    }));
-
+    }).map(f => ({ ...f, onOpen: () => this.openLightbox(f) }));
     const fichaFilters = fichaCats.map(c => ({
       label: c,
       active: c === activeCat,
@@ -492,27 +661,26 @@ class Component extends DCLogic {
       color: c === activeCat ? '#ffffff' : '#303544',
       onClick: () => this.setFilter(c),
     }));
-    
     const lightbox = this.state.lightbox;
-    const menuOpen = this.state.menuOpen;
 
     return {
       route,
       aboutStats,
       timeline,
+      divisions,
       fichas,
       fichaFilters,
+      fichaCount: fichas.length,
+      hasFichas: fichas.length > 0,
+      isEmpty: fichas.length === 0,
       lightbox,
       lightboxOpen: !!lightbox,
-      menuOpen,
-      toggleMenu: () => this.toggleMenu(),
-      isEmpty: fichas.length === 0,
-      hasFichas: fichas.length > 0,
       onSearch: (e) => this.setQuery(e),
       closeLightbox: () => this.closeLightbox(),
       stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
       isInicio: route === 'inicio',
       isNosotros: route === 'nosotros',
+      isFichas: route === 'fichas',
       isProductos: route === 'productos',
       isContacto: route === 'contacto',
       isGracias: route === 'gracias',
@@ -520,8 +688,11 @@ class Component extends DCLogic {
       metrics,
       classRows,
       sectors,
+      lineCards,
+      products,
       navInicio: nav('inicio'),
       navNosotros: nav('nosotros'),
+      navFichas: nav('fichas'),
       navProductos: nav('productos'),
       navContacto: contact,
       navCatalog: () => this.goCatalog(),
