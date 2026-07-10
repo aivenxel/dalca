@@ -536,7 +536,14 @@ class Component extends DCLogic {
   go(id) {
     this.setState({ route: id, menuOpen: false });
     try { document.body.style.overflow = ''; } catch (e) {}
-    requestAnimationFrame(() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); } });
+    const toTop = () => {
+      try { window.scrollTo(0, 0); } catch (e) {}
+      try { document.documentElement.scrollTop = 0; } catch (e) {}
+      try { document.body.scrollTop = 0; } catch (e) {}
+    };
+    toTop();
+    requestAnimationFrame(() => { toTop(); requestAnimationFrame(toTop); });
+    setTimeout(toTop, 60);
   }
 
   toggleMenu() {
