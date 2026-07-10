@@ -46,13 +46,15 @@ body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#f3f4f6;co
 img{display:block;max-width:100%}
 @keyframes dalcaFade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .dalca-hamburger{display:none}
+.dalca-menu-close{display:none}
 .dalca-nav-links{display:flex;align-items:center;gap:26px}
 @media (max-width: 860px){
   .dalca-hamburger{display:flex !important}
-  .dalca-nav-links{display:flex !important;position:fixed !important;inset:0 !important;padding:96px 24px 32px !important;background:#f3f4f6 !important;flex-direction:column !important;align-items:flex-start !important;gap:4px !important;overflow-y:auto !important;transform:translateX(100%);transition:transform .25s ease;z-index:90}
+  .dalca-nav-links{display:flex !important;position:fixed !important;inset:0 !important;padding:24px !important;background:#f3f4f6 !important;flex-direction:column !important;align-items:stretch !important;justify-content:center !important;gap:10px !important;overflow-y:auto !important;transform:translateX(100%);transition:transform .25s ease;z-index:90}
   .dalca-nav-links.open{transform:translateX(0) !important}
-  .dalca-nav-links > *{flex:none !important;width:100% !important;box-sizing:border-box !important}
-  .dalca-nav-links a{padding:14px 4px !important;font-size:18px !important;min-height:44px;display:flex;align-items:center}
+  .dalca-menu-item{flex:none !important;width:100% !important;box-sizing:border-box !important}
+  .dalca-nav-links a.dalca-menu-item{padding:16px 4px !important;font-size:19px !important;min-height:48px;display:flex !important;align-items:center;justify-content:center !important;text-align:center;border-radius:14px}
+  .dalca-menu-close{display:flex !important;position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:12px;border:1px solid #d9dde6;background:white;font-size:26px;line-height:1;cursor:pointer;align-items:center;justify-content:center;z-index:91}
 }
 @media (max-width: 760px){
   .dalca-product-grid{grid-template-columns:1fr !important}
@@ -77,15 +79,16 @@ img{display:block;max-width:100%}
       <span style="display:block;width:20px;height:2px;background:#151824;position:relative"><span style="content:'';position:absolute;left:0;top:-6px;width:20px;height:2px;background:#151824"></span><span style="content:'';position:absolute;left:0;top:6px;width:20px;height:2px;background:#151824"></span></span>
     </button>
     <div class="{{ menuClass }}">
+      <button type="button" class="dalca-menu-close" onClick="{{ toggleMenu }}" aria-label="Cerrar menú">×</button>
       <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
-        <a onClick="{{ item.onClick }}" style="position:relative;padding:8px 0;font-weight:800;color:#303544;cursor:pointer;white-space:nowrap">
+        <a class="dalca-menu-item" onClick="{{ item.onClick }}" style="position:relative;padding:8px 0;font-weight:800;color:#303544;cursor:pointer;white-space:nowrap">
           {{ item.label }}
           <sc-if value="{{ item.active }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:9px;background:#322a7a"></span>
           </sc-if>
         </a>
       </sc-for>
-      <a href="https://wa.me/+584244448713" target="_blank" rel="noopener" style="background:#322a7a;color:white;border-radius:999px;padding:13px 22px;font-weight:900;box-shadow:0 8px 22px rgba(50,42,122,.16);white-space:nowrap">WhatsApp</a>
+      <a class="dalca-menu-item" href="https://wa.me/+584244448713" target="_blank" rel="noopener" style="background:#322a7a;color:white;border-radius:999px;padding:13px 22px;font-weight:900;box-shadow:0 8px 22px rgba(50,42,122,.16);white-space:nowrap">WhatsApp</a>
     </div>
   </nav>
 </header>
@@ -521,10 +524,15 @@ class Component extends DCLogic {
 
   go(id) {
     this.setState({ route: id, menuOpen: false });
+    try { document.body.style.overflow = ''; } catch (e) {}
     requestAnimationFrame(() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); } });
   }
 
-  toggleMenu() { this.setState(s => ({ menuOpen: !s.menuOpen })); }
+  toggleMenu() {
+    this.setState(s => ({ menuOpen: !s.menuOpen }), () => {
+      try { document.body.style.overflow = this.state.menuOpen ? 'hidden' : ''; } catch (e) {}
+    });
+  }
   openLightbox(f) { this.setState({ lightbox: f }); }
   closeLightbox() { this.setState({ lightbox: null }); }
   setProdFilter(cat) { this.setState({ prodFilter: cat }); }
